@@ -87,7 +87,7 @@ class PageController extends Controller
                 'integer',
                 $find_page
             ],
-            'name' => sprintf('required|max:%d', Page::NAME_MAX_SIZE),
+            'name' => sprintf('max:%d', Page::NAME_MAX_SIZE),
             'content' => $max_content_rule
         ]);
 
@@ -96,8 +96,10 @@ class PageController extends Controller
 
         $page = $find_page->model;
         $page->status = Page::STATUS_DRAFT;
-        $page->name = $request->name;
-        $page->content = $request->content;
+        if($request->name)
+            $page->name = $request->name;
+        if($request->content)
+            $page->content = $request->content;
         $page->save();
         return $page;
     }
@@ -123,7 +125,7 @@ class PageController extends Controller
             return $this->badRequest($validator->errors());
         
         $page_path = sprintf('%d.html', $request->id);
-        $disk = Storage::disk('pages');
+        $disk = Storage::disk('public');
         DB::transaction(function() use($disk, $request, $page_path) {
             $page = Page::where('id', '=', $request->id)->lockForUpdate()->first();
             if(!$page)
