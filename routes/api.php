@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/folders', 'FolderController@index');
+Route::post('/pages', 'PageController@index');
+Route::post('/page/create', 'PageController@create');
+Route::post('/page/save', 'PageController@save');
+Route::post('/page/publish', 'PageController@publish');
