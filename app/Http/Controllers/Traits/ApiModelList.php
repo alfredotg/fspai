@@ -28,7 +28,6 @@ trait ApiModelList
         $limit = $request->get('limit') ?? 10;
         $after_id = $request->get('after_id') ?? -1;
 
-        $builder = $builder->orderBy('name', $order)->orderBy('id', 'asc')->limit($limit);
         if($after_id > 0)
         {
             $model = (clone $builder)->find($after_id);
@@ -40,6 +39,7 @@ trait ApiModelList
             });
         }
 
+        $builder = $builder->orderBy('name', $order)->orderBy('id', 'asc')->limit($limit);
         return response()->json($builder->get()->toArray(), 200);
     } 
 }
