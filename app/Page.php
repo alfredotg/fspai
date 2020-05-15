@@ -21,7 +21,6 @@ class Page extends Model
     protected $visible = [
         'id', 
         'name',
-        'content',
         'status',
     ];
 
