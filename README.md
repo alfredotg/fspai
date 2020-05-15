@@ -1,3 +1,5 @@
+Контроллеры находятся в app/Http/Controllers/.
+Тесты в tests/Feature/.
 
 ## Запуск тестов
 ```
